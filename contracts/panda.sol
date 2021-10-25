@@ -15,7 +15,7 @@ contract The_Merge_Panda is ERC721, Ownable {
 
     mapping (address => bool) internal userMinted;
 
-    uint256 constant private MAX_AMOUNT = 5;
+    uint256 constant private MAX_AMOUNT = 100;
 
     constructor (string memory baseUri) ERC721("The Merge Panda", "PANDA") {
         __baseUri = baseUri;
@@ -27,7 +27,7 @@ contract The_Merge_Panda is ERC721, Ownable {
     }
 
     function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
-        require(_exists(tokenId), "URI query for nonexistent token");
+        require(_exists(tokenId), "tokenURI: query for nonexistent token");
 
         string memory base = _baseURI();
         return string(abi.encodePacked(base, tokenId.toString(), ".json"));
