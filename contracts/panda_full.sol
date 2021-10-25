@@ -1137,6 +1137,14 @@ contract The_Merge_Panda is ERC721, Ownable {
         return __baseUri;
     }
 
+    function totalSupply() public view returns (uint256) {
+        return MAX_AMOUNT;
+    }
+
+    function tokenId() public view returns (uint256) {
+        return tokenCounter.current();
+    }
+
     function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
         require(_exists(tokenId), "tokenURI: query for nonexistent token");
 
@@ -1154,12 +1162,16 @@ contract The_Merge_Panda is ERC721, Ownable {
         require(!userMinted[_msgSender()], "mint: you have minted");
         tokenCounter.increment();
         uint256 currentTokenId = tokenCounter.current();
-
-        userMinted[_msgSender()] = true;
-
         require(currentTokenId <= MAX_AMOUNT, "mint: all tokens have been minted");
+
+        // update minting status
+        userMinted[_msgSender()] = true;
+        
+
+        // mint panda
         _safeMint(_msgSender(), currentTokenId);
         
+        emit minted(_msgSender(), currentTokenId);
     }
 
     /** ========== internal view functions ========== */
