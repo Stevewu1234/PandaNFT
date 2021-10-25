@@ -26,11 +26,11 @@ contract The_Merge_Panda is ERC721, Ownable {
         return __baseUri;
     }
 
-    function totalSupply() public view returns (uint256) {
+    function totalSupply() public pure returns (uint256) {
         return MAX_AMOUNT;
     }
 
-    function tokenId() public view returns (uint256) {
+    function currentPandaId() public view returns (uint256) {
         return tokenCounter.current();
     }
 
